@@ -57,7 +57,7 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className="App-container">
+			<div>
 				{this.displayPanel()}	 
 			</div>
 		) 

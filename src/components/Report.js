@@ -13,6 +13,7 @@ class Report extends Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleReset = this.handleReset.bind(this);
+		this.handleCommit = this.handleCommit.bind(this);
 		
 	}
 
@@ -44,12 +45,38 @@ class Report extends Component {
 		}
 	}
 
-	handleReset(event) {
-		this.setState({
-			report: [],
-			name:'',
-			cost:'',
+
+
+	handleCommit(event) {
+		const user = this.props.firebaseApp.auth().currentUser;
+		
+ let reportsCount = 0;
+		this.props.firebaseApp.database().ref('reports/').on('value', (dataSnapshot) => {
+			dataSnapshot.forEach((child) => { reportsCount++ });
+		});
+		
+		this.props.firebaseApp.database().ref('reports/report-' + reportsCount).set({
+			id: reportsCount,
+			data:this.state.report
+  }).then(function () {
+			alert("Done")
+			this.resetList()
+	}).catch(function (error) {
+			console.log(error)
+		});
+	}
+
+	resetList() {
+			this.setState({
+				report: [],
+				name:'',
+				cost:'',
 		})
+	}
+
+	handleReset(event) {
+	event.preventDefault();
+		this.resetList()
 	}
 
 
@@ -59,7 +86,7 @@ class Report extends Component {
 				<FormGroup controlId="formItem1">
 				<ControlLabel>Item</ControlLabel>
 					<FormControl
-						ktype="text"
+						type="text"
 						name="name"
 						placeholder="Item name" value={this.state.name} onChange={this.handleChange} />
 	    <br/>
@@ -71,7 +98,6 @@ class Report extends Component {
 				<FormGroup>
 				<ButtonToolbar>
 						<Button bsStyle="success" type="submit">Submit</Button>
-						<Button bsStyle="danger" onClick={this.handleReset} >Reset</Button>
 					</ButtonToolbar>	
 				</FormGroup>
 			</Form>
@@ -93,7 +119,7 @@ class Report extends Component {
 
 	getItems() {
 		const items = this.state.report.map((item, key) =>
-				<p>Item: {key}, Name: {item.name}, Cost: {item.cost}</p>
+			<p key={key}>Item: {key}, Name: {item.name}, Cost: {item.cost}</p>
   );
   return items
 	}
@@ -107,15 +133,43 @@ class Report extends Component {
 				<Panel.Body>
 					<p>Items: {this.state.report.length}</p>
 					{this.getItems()}
+					<ButtonToolbar>
+						<Button bsStyle="success" onClick={this.handleCommit}>Update database</Button>
+						<Button bsStyle="danger" onClick={this.handleReset} >Reset</Button>
+					</ButtonToolbar>	
 				</Panel.Body>
 			</Panel>
 		)
 	}
 
+	displayUser() {
+const user = this.props.firebaseApp.auth().currentUser;
+if (user != null) {
+	return (
+		<Panel>
+			<Panel.Heading>
+				<Panel.Title componentClass="h3">User</Panel.Title>
+			</Panel.Heading>
+			<Panel.Body>
+				<p>User: {user.displayName}</p>
+				<p>email: {user.email}</p>
+				<img src={user.photoUrl}/>
+
+			</Panel.Body>
+		</Panel>
+	)
+}
+else {
+	return <div></div>
+		}
+
+	}
+
 	render() {
 		return (
 			<div className="App-container">
-			 {this.displayReport()}	
+				{this.displayUser()}	
+				{this.displayReport()}	
 				{this.displayItem()}
 			</div>
 		)
