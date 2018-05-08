@@ -1,0 +1,118 @@
+import React, {Component} from 'react';
+import { Button,Panel,Form,FormGroup,FormControl,ControlLabel } from 'react-bootstrap';
+
+class Report extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			report: [],
+			name:'',
+			cost:'',
+		}
+		this.handleChange = this.handleChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handlePrev = this.handlePrev.bind(this);
+		this.handleNext = this.handleNext.bind(this);
+	}
+
+	handleChange(event) {
+		alert(event.tat)
+		if (event.target.name === 'name') {
+			this.setState({name: event.target.value});
+		}
+		else{
+			this.setState({cost: event.target.value});
+		}
+	}
+
+	handleSubmit(event) {
+		event.preventDefault();
+		let list = this.state.report
+		list.push({
+			name: this.state.name,
+			cost: this.state.cost
+		});
+		this.setState({report:list})
+	}
+
+	handlePrev(event) {
+		event.preventDefault();
+		this.setState({isAuthenticated: false});
+	}
+	handleNext(event) {
+		event.preventDefault();
+		this.setState({isAuthenticated: false});
+	}
+
+	displayForm() {
+		return (
+			<Form onSubmit={this.handleSubmit}>
+				<FormGroup controlId="formItem">
+					 <ControlLabel>Item</ControlLabel>
+					<FormControl
+						ktype="text"
+						name="name"
+						placeholder="Item name" value={this.state.item} onChange={this.handleChange} />
+				</FormGroup>
+				<FormGroup controlId="formItem">
+					 <ControlLabel>cost</ControlLabel>
+					<FormControl type="number"
+						name="cost"
+						placeholder="Cost" value={this.state.cost} onChange={this.handleChange} />
+				</FormGroup>
+				<FormGroup>
+						<Button type="submit">Submit</Button>
+				</FormGroup>
+			</Form>
+		)
+	}
+
+	displayItem() {
+		return (
+			<Panel>
+				<Panel.Heading>
+					<Panel.Title componentClass="h3">Reports</Panel.Title>
+				</Panel.Heading>
+				<Panel.Body>
+					 {this.displayForm()}
+				</Panel.Body>
+			</Panel>
+		)
+	}
+
+	getItems() {
+		const items = this.state.report.map((item) =>
+					<div>
+							<p className="Term-title">Name: {item.name}</p>
+							<p className="Term-body">Cost: {item.value}</p>
+				</div>
+  );
+  return items
+	}
+
+	displayReport() {
+		return (
+			<Panel>
+				<Panel.Heading>
+					<Panel.Title componentClass="h3">Report</Panel.Title>
+				</Panel.Heading>
+				<Panel.Body>
+					<p>Items: {this.state.report.length}</p>
+					{this.getItems()}
+				</Panel.Body>
+			</Panel>
+		)
+	}
+
+	render() {
+		return (
+			<div className="App-container">
+			 {this.displayReport()}	
+				{this.displayItem()}
+			</div>
+		)
+	}
+}
+
+export default Report;
