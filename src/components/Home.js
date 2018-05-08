@@ -6,10 +6,12 @@ import firebaseUI from 'firebase';
 import * as firebase from 'firebase';
 import * as config from '../data/config';
 
+import '../styles/index.css';
 import Report from './Report';
 import Navigation from './Navigation';
 
 const firebaseApp = firebase.initializeApp(config.firebaseConfig);
+
 
 class Home extends Component {
 
@@ -103,12 +105,12 @@ displayPanel() {
 
 	render() {
 		return this.state.isAuthenticated ? (
-			<div className="App-container">
+			<div>
 				<Navigation login={this}  />
 				<Report login={this} firebaseApp={firebaseApp} />
 			</div>
 			
-		) : (<div>{this.displayPanel()}</div>	
+		) : (<div className="App-container">{this.displayPanel()}</div>	
 				
 			
 			)

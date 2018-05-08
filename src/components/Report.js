@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { ButtonToolbar,Button,Panel,Form,FormGroup,FormControl,ControlLabel } from 'react-bootstrap';
-
+import '../styles/index.css';
 class Report extends Component {
 
 	constructor(props) {
