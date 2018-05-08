@@ -1,2 +1,3 @@
 # carmel-allowances-app
-Demo app
+Demo app 
+With Firebase
