@@ -4,13 +4,22 @@ import {  Panel } from 'react-bootstrap';
 import { FirebaseAuth } from 'react-firebaseui';
 import firebaseUI from 'firebase';
 import * as firebase from 'firebase';
-import * as config from '../data/config';
+//import * as config from '../data/config';
+
+const firebaseConfig = {
+	apiKey: "",
+	authDomain: "",
+	databaseURL: "",
+	projectId: "",
+	storageBucket: "",
+	messagingSenderId: ""
+};
 
 import '../styles/index.css';
 import Report from './Report';
 import Navigation from './Navigation';
 
-const firebaseApp = firebase.initializeApp(config.firebaseConfig);
+const firebaseApp = firebase.initializeApp(config);
 
 
 class Home extends Component {
@@ -105,7 +114,7 @@ displayPanel() {
 
 	render() {
 		return this.state.isAuthenticated ? (
-			<div>
+  <div>
 				<Navigation login={this}  />
 				<Report login={this} firebaseApp={firebaseApp} />
 			</div>
