@@ -6,6 +6,10 @@ import firebaseUI from 'firebase';
 import * as firebase from 'firebase';
 //import * as config from '../data/config';
 
+import '../styles/index.css';
+import Report from './Report';
+import Navigation from './Navigation';
+
 const firebaseConfig = {
 	apiKey: "",
 	authDomain: "",
@@ -15,11 +19,7 @@ const firebaseConfig = {
 	messagingSenderId: ""
 };
 
-import '../styles/index.css';
-import Report from './Report';
-import Navigation from './Navigation';
-
-const firebaseApp = firebase.initializeApp(config);
+const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 
 class Home extends Component {
