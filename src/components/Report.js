@@ -57,6 +57,7 @@ class Report extends Component {
 		
 		this.props.firebaseApp.database().ref('reports/report-' + reportsCount).set({
 			id: reportsCount,
+			user: user.email,
 			data:this.state.report
   }).then(function () {
 			alert("Done")
@@ -153,8 +154,6 @@ if (user != null) {
 			<Panel.Body>
 				<p>User: {user.displayName}</p>
 				<p>email: {user.email}</p>
-				<img src={user.photoUrl}/>
-
 			</Panel.Body>
 		</Panel>
 	)
