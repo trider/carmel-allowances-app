@@ -11,12 +11,12 @@ import Report from './Report';
 import Navigation from './Navigation';
 
 const firebaseConfig = {
-	apiKey: "",
-	authDomain: "",
-	databaseURL: "",
-	projectId: "",
-	storageBucket: "",
-	messagingSenderId: ""
+	apiKey: "AIzaSyByC_kVv6Ll5Rg6VzR76WQ_tmxut1_wDIU",
+	authDomain: "carmel-alllowances-app.firebaseapp.com",
+	databaseURL: "https://carmel-alllowances-app.firebaseio.com",
+	projectId: "carmel-alllowances-app",
+	storageBucket: "carmel-alllowances-app.appspot.com",
+	messagingSenderId: "515855105004"
 };
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
