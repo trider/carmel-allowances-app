@@ -4,23 +4,23 @@ import {  Panel } from 'react-bootstrap';
 import { FirebaseAuth } from 'react-firebaseui';
 import firebaseUI from 'firebase';
 import * as firebase from 'firebase';
-//import * as config from '../data/config';
+import * as config from '../data/config';
 
 import '../styles/index.css';
 import Report from './Report';
 import Navigation from './Navigation';
 
-const firebaseConfig = {
-	apiKey: "AIzaSyByC_kVv6Ll5Rg6VzR76WQ_tmxut1_wDIU",
-	authDomain: "carmel-alllowances-app.firebaseapp.com",
-	databaseURL: "https://carmel-alllowances-app.firebaseio.com",
-	projectId: "carmel-alllowances-app",
-	storageBucket: "carmel-alllowances-app.appspot.com",
-	messagingSenderId: "515855105004"
-};
+// export const firebaseConfig = {
+// 	apiKey: "",
+// 	authDomain: "",
+// 	databaseURL: "",
+// 	projectId: "",
+// 	storageBucket: "",
+// 	messagingSenderId: ""
+// };
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-
+const firebaseApp = firebase.initializeApp(config.firebaseConfig);
+// const firebaseApp = firebase.initializeApp(firebaseConfig);
 
 class Home extends Component {
 

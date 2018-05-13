@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-import { ButtonToolbar,Button,Panel,Form,FormGroup,FormControl,ControlLabel } from 'react-bootstrap';
+import {
+	ButtonToolbar, Button, Panel, Form, FormGroup,
+	FormControl, ControlLabel, Image
+} from 'react-bootstrap';
 import '../styles/App.css';
 class Report extends Component {
 
@@ -48,7 +51,9 @@ class Report extends Component {
 
 
 	handleCommit(event) {
+	
 		const user = this.props.firebaseApp.auth().currentUser;
+		const report = this.state.report
 		
  let reportsCount = 0;
 		this.props.firebaseApp.database().ref('reports/').on('value', (dataSnapshot) => {
@@ -58,13 +63,14 @@ class Report extends Component {
 		this.props.firebaseApp.database().ref('reports/report-' + reportsCount).set({
 			id: reportsCount,
 			user: user.email,
-			data:this.state.report
+			data:report
   }).then(function () {
 			alert("Done")
-			this.resetList()
 	}).catch(function (error) {
 			console.log(error)
-		});
+			});
+		this.resetList()
+		
 	}
 
 	resetList() {
@@ -77,7 +83,7 @@ class Report extends Component {
 
 	handleReset(event) {
 	event.preventDefault();
-		this.resetList()
+	this.resetList()
 	}
 
 
@@ -154,6 +160,7 @@ if (user != null) {
 			<Panel.Body>
 				<p>User: {user.displayName}</p>
 				<p>email: {user.email}</p>
+				<Image src={user.photoURL} thumbnail />
 			</Panel.Body>
 		</Panel>
 	)
